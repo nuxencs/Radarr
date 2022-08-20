@@ -82,7 +82,7 @@ namespace Radarr.Api.V3.Movies
             _commandQueueManager = commandQueueManager;
             _logger = logger;
 
-            SharedValidator.RuleFor(s => s.QualityProfileId).ValidId().When(s => s.QualityProfileIds.Empty());
+            SharedValidator.RuleFor(s => s.QualityProfileId).ValidId().When(s => s.QualityProfileIds == null || s.QualityProfileIds.Empty());
 
             SharedValidator.RuleFor(s => s.Path)
                            .Cascade(CascadeMode.StopOnFirstFailure)
@@ -95,6 +95,7 @@ namespace Radarr.Api.V3.Movies
                            .SetValidator(systemFolderValidator)
                            .When(s => !s.Path.IsNullOrWhiteSpace());
 
+            SharedValidator.RuleFor(s => s.QualityProfileIds).NotNull().When(s => s.QualityProfileId == 0);
             SharedValidator.RuleForEach(s => s.QualityProfileIds).SetValidator(profileExistsValidator);
 
             PostValidator.RuleFor(s => s.Path).IsValidPath().When(s => s.RootFolderPath.IsNullOrWhiteSpace());

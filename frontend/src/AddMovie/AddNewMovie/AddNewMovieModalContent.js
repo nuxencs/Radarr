@@ -20,10 +20,6 @@ class AddNewMovieModalContent extends Component {
   //
   // Listeners
 
-  onQualityProfileIdChange = ({ value }) => {
-    this.props.onInputChange({ name: 'qualityProfileId', value: parseInt(value) });
-  };
-
   onAddMoviePress = () => {
     this.props.onAddMoviePress();
   };
@@ -131,7 +127,7 @@ class AddNewMovieModalContent extends Component {
                   <FormInputGroup
                     type={inputTypes.QUALITY_PROFILE_SELECT}
                     name="qualityProfileIds"
-                    onChange={this.onQualityProfileIdChange}
+                    onChange={onInputChange}
                     {...qualityProfileIds}
                   />
                 </FormGroup>
